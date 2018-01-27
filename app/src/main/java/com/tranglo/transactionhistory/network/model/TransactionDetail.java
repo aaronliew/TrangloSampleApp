@@ -34,7 +34,7 @@ public class TransactionDetail {
             parsedFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date date = parsedFormat.parse(CreatedDate);
 
-            SimpleDateFormat outFormat = new SimpleDateFormat("h:mm a dd MMM yyyy", Locale.ENGLISH);
+            SimpleDateFormat outFormat = new SimpleDateFormat("h:mma dd/MM/yy", Locale.ENGLISH);
             return outFormat.format(date);
         } catch (ParseException e){
             return CreatedDate;
