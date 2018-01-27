@@ -81,7 +81,7 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
 
                     @Override
                     public void onError(Throwable e) {
-
+                        transactionListView.displayErrorMessage(e.getMessage());
                     }
 
                     @Override
