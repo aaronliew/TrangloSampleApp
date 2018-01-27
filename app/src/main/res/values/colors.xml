@@ -7,4 +7,10 @@
     <color name="status_failed">#FFCDD2</color>
     <color name="status_success">#C8E6C9</color>
     <color name="status_pending">#FFF9C4</color>
+
+    <color name="fab_color_normal">#039BE5</color>
+    <color name="fab_color_pressed">#0288D1</color>
+    <color name="half_black">#212121</color>
+
+    <color name="blue_grey">#546E7A</color>
 </resources>
