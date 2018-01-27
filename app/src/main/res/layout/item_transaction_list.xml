@@ -52,7 +52,7 @@
             app:layout_constraintTop_toBottomOf="@+id/recipient_name"
             android:layout_marginTop="@dimen/transaction_item_vertical_spacing"
             android:textColor="@android:color/black"
-            android:text="Colleague"
+            android:text="@string/recipient_relationship"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         <TextView
@@ -63,7 +63,7 @@
             app:layout_constraintTop_toBottomOf="@+id/recipient_relationship"
             android:textColor="@android:color/black"
             android:layout_marginTop="@dimen/transaction_item_vertical_spacing"
-            android:text="1234567"
+            android:text="@string/recipient_contact"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
         <View
@@ -84,30 +84,29 @@
             app:layout_constraintTop_toBottomOf="@+id/divider"
             android:layout_marginTop="@dimen/transaction_item_vertical_spacing"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="123"/>
+            android:text="@string/amount"/>
 
         <TextView
-            android:id="@+id/recipient_info_currency"
+            android:id="@+id/recipient_currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sender_amount"
             android:layout_marginTop="@dimen/transaction_item_vertical_spacing"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="MYR"/>
+            android:text="@string/recipient_currency"/>
 
         <TextView
-            android:id="@+id/recipient_info_country"
+            android:id="@+id/recipient_country"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipient_info_currency"
+            app:layout_constraintTop_toBottomOf="@+id/recipient_currency"
             android:layout_marginTop="@dimen/transaction_item_vertical_spacing"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="MY"/>
+            android:text="@string/recipient_country"/>
 
         <TextView
-            android:id="@+id/status_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/divider"
@@ -116,7 +115,7 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="@dimen/transaction_item_vertical_spacing"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="Status:"/>
+            android:text="@string/transaction_status"/>
 
         <ImageView
             android:id="@+id/status_icon"
