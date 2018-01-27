@@ -3,4 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="status_failed">#FFCDD2</color>
+    <color name="status_success">#C8E6C9</color>
+    <color name="status_pending">#FFF9C4</color>
 </resources>
