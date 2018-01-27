@@ -4,10 +4,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.tranglo.transactionhistory.BaseApplication;
 import com.tranglo.transactionhistory.R;
@@ -41,6 +43,11 @@ public class TransactionListFragment extends Fragment implements TransactionList
 
     TransactionListComponent activityComponent;
 
+    public static TransactionListFragment newInstance() {
+        return new TransactionListFragment();
+    }
+
+
 
     public TransactionListComponent getActivityComponent() {
         if (activityComponent == null) {
@@ -63,8 +70,8 @@ public class TransactionListFragment extends Fragment implements TransactionList
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_transaction_list, container, false);
         ButterKnife.bind(this, view);
-
-
+        transactionListViewPresenter.setView(this);
+        transactionListViewPresenter.getAccessToken();
         return view;
     }
 
@@ -75,11 +82,12 @@ public class TransactionListFragment extends Fragment implements TransactionList
 
     @Override
     public void displayErrorMessage(String text) {
-
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showTransactionList(List<TransactionDetail> transactionDetails) {
+        transactionList.setLayoutManager(new LinearLayoutManager(getActivity()));
         transactionList.setAdapter(new TransactionListAdapter(getActivity(), transactionDetails));
     }
 }
