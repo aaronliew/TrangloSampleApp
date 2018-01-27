@@ -10,7 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField 'String', 'BASE_URL', '"https://dev.tikfx.com/demo"'
+        buildConfigField 'String', 'BASE_URL', '"https://dev.tikfx.com/demo/"'
         buildConfigField 'String', 'CLIENT_SECRET', '"A93reRTUJHsCuQSHR+L3GxqOJyDmQpCgps102ciuabc="'
         buildConfigField 'String', 'CLIENT_ID', '"tempo"'
         buildConfigField 'String', 'GRANT_TYPE', '"password"'
