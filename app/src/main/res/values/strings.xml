@@ -13,9 +13,9 @@
     <!--transaction item-->
     <string name="recipient_info">Recipient Info</string>
     <string name="transaction_status">Status: </string>
-    <string name="recipient_contact">Contact Number: </string>
-    <string name="recipient_relationship">Relationship: </string>
-    <string name="amount">Amount: </string>
-    <string name="currency">Currency: </string>
-    <string name="country">Country: </string>
+    <string name="recipient_contact">Contact Number: %1$s</string>
+    <string name="recipient_relationship">Relationship: %1$s</string>
+    <string name="amount">Amount: %1$s</string>
+    <string name="recipient_currency">Recipient Currency: %1$s</string>
+    <string name="recipient_country">Recipient Country: %1$s</string>
 </resources>
