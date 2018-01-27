@@ -1,6 +1,7 @@
 package com.tranglo.transactionhistory.ui.transactionlist.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,31 +48,45 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         TransactionDetail transactionDetail = transactionDetails.get(position);
 
         holder.recipientName.setText(transactionDetail.getRecipientName());
-        holder.recipientContact.setText(transactionDetail.getRecipientContactNumber());
         holder.transactionDate.setText(transactionDetail.getCreatedDate());
-        holder.recipientRelationship.setText(transactionDetail.getRecipientRelationShip());
+        holder.recipientContact.setText(formatString(R.string.recipient_contact, transactionDetail.getRecipientContactNumber()));
+        holder.recipientRelationship.setText(formatString(R.string.recipient_relationship, transactionDetail.getRecipientRelationShip()));
 
-        holder.senderAmount.setText(transactionDetail.getSenderAmount());
-        holder.recipientCurrency.setText(transactionDetail.getRecipientCurrency());
-        holder.recipientCountry.setText(transactionDetail.getRecipientCountry());
+        holder.senderAmount.setText(formatString(R.string.amount, transactionDetail.getSenderAmount()));
+        holder.recipientCurrency.setText(formatString(R.string.recipient_currency, transactionDetail.getRecipientCurrency()));
+        holder.recipientCountry.setText(formatString(R.string.recipient_country, transactionDetail.getRecipientCountry()));
 
-        setStatusIcon(holder.statusIcon, transactionDetail.getStatus());
+        setStatusIcon(holder, transactionDetail.getStatus());
+    }
+
+    private String formatString(int id, String text){
+        return context.getString(id, text);
     }
 
 
-    private void setStatusIcon(ImageView statusIcon, int statusCode){
+    private void setStatusIcon(ViewHolder holder, int statusCode){
+        ImageView statusIcon = holder.statusIcon;
+        CardView transactionItemContainer = holder.transactionItemContainer;
         switch (statusCode){
             case Const.PENDING_STATUS_CODE:
                 statusIcon.setBackground(context.getDrawable(R.drawable.ic_success));
+                transactionItemContainer.setCardBackgroundColor(context.getResources().getColor(R.color.status_success));
+                break;
             case Const.FAIL_STATUS_CODE:
                 statusIcon.setBackground(context.getDrawable(R.drawable.ic_failed));
+                transactionItemContainer.setCardBackgroundColor(context.getResources().getColor(R.color.status_failed));
+                break;
             default:
                 statusIcon.setBackground(context.getDrawable(R.drawable.ic_pending));
+                transactionItemContainer.setCardBackgroundColor(context.getResources().getColor(R.color.status_pending));
         }
 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.transaction_item_container)
+        public CardView transactionItemContainer;
+
         @BindView(R.id.recipient_name)
         public TextView recipientName;
 
