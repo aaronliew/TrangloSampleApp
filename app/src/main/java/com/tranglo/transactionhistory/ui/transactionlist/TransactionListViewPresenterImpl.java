@@ -55,6 +55,7 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
                     @Override
                     public void onError(Throwable e) {
                         transactionListView.displayErrorMessage(e.getMessage());
+                        transactionListView.showLoading(false);
                     }
 
                     @Override
@@ -77,11 +78,13 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
                     @Override
                     public void onNext(List<TransactionDetail> transactionDetails) {
                         transactionListView.showTransactionList(transactionDetails);
+                        transactionListView.showLoading(false);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         transactionListView.displayErrorMessage(e.getMessage());
+                        transactionListView.showLoading(false);
                     }
 
                     @Override

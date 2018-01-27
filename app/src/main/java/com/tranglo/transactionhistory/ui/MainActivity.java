@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.tranglo.transactionhistory.R;
@@ -34,12 +36,14 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.sort_by_time)
     FloatingActionButton sortByTimefab;
 
-
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
 
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+
+    @BindView(R.id.loading_animation)
+    LottieAnimationView loadingAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,5 +110,15 @@ public class MainActivity extends AppCompatActivity
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.main_container, fragment).commit();
+    }
+
+    public void showLoading(boolean playAnimation){
+        if (playAnimation && !loadingAnimation.isAnimating()){
+            loadingAnimation.setVisibility(View.VISIBLE);
+            loadingAnimation.playAnimation();
+        } else if (!playAnimation && loadingAnimation.isAnimating()){
+            loadingAnimation.setVisibility(View.GONE);
+            loadingAnimation.cancelAnimation();
+        }
     }
 }

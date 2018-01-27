@@ -55,13 +55,12 @@
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
+        android:id="@+id/loading_animation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:lottie_fileName="plane.json"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true" />
+        app:lottie_loop="true" />
 
 
 

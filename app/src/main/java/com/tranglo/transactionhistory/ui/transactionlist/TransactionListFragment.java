@@ -19,6 +19,7 @@ import com.tranglo.transactionhistory.di.component.DaggerTransactionListComponen
 import com.tranglo.transactionhistory.di.component.TransactionListComponent;
 import com.tranglo.transactionhistory.di.module.TransactionListModule;
 import com.tranglo.transactionhistory.network.model.TransactionDetail;
+import com.tranglo.transactionhistory.ui.MainActivity;
 import com.tranglo.transactionhistory.ui.transactionlist.adapter.TransactionListAdapter;
 
 import java.util.List;
@@ -70,6 +71,7 @@ public class TransactionListFragment extends Fragment implements TransactionList
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_transaction_list, container, false);
         ButterKnife.bind(this, view);
+        showLoading(true);
         transactionListViewPresenter.setView(this);
         transactionListViewPresenter.getAccessToken();
         return view;
@@ -77,7 +79,7 @@ public class TransactionListFragment extends Fragment implements TransactionList
 
     @Override
     public void showLoading(boolean isLoading) {
-
+        ((MainActivity) getActivity()).showLoading(isLoading);
     }
 
     @Override
