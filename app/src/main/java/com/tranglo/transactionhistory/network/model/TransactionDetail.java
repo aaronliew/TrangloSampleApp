@@ -17,7 +17,7 @@ public class TransactionDetail {
     public double SenderAmount;
     public String RecipientCountry;
     public String RecipientCurrency;
-    public String Status;
+    public int Status;
     public Recipientinfo RecipientInfo;
 
     public class Recipientinfo{
@@ -40,5 +40,33 @@ public class TransactionDetail {
             return CreatedDate;
         }
 
+    }
+
+    public String getRecipientName(){
+        return RecipientInfo.Name;
+    }
+
+    public String getRecipientRelationShip(){
+        return RecipientInfo.Relationship;
+    }
+
+    public String getRecipientContactNumber(){
+        return RecipientInfo.ContactNumber;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public String getSenderAmount() {
+        return String.valueOf(SenderAmount);
+    }
+
+    public String getRecipientCurrency() {
+        return RecipientCurrency;
+    }
+
+    public String getRecipientCountry() {
+        return RecipientCountry;
     }
 }
