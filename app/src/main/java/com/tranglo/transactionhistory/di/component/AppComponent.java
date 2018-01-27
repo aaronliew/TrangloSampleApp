@@ -6,6 +6,7 @@ import com.tranglo.transactionhistory.BaseApplication;
 import com.tranglo.transactionhistory.di.Qualifiers;
 import com.tranglo.transactionhistory.di.module.AppModule;
 import com.tranglo.transactionhistory.di.module.NetworkModule;
+import com.tranglo.transactionhistory.network.TransactionWebService;
 
 import javax.inject.Singleton;
 
@@ -24,6 +25,9 @@ public interface AppComponent {
 
     @Qualifiers.SharedPreferences
     SharedPreferences sharedPreferences();
+
+    @Qualifiers.TransactionWebService
+    TransactionWebService transactionWebService();
 
     void inject(BaseApplication application);
 }
