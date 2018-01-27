@@ -3,6 +3,8 @@ package com.tranglo.transactionhistory.ui;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.tranglo.transactionhistory.R;
+import com.tranglo.transactionhistory.ui.transactionlist.TransactionListFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,6 +45,9 @@ public class MainActivity extends AppCompatActivity
 
         initFab();
         initDrawer();
+
+        //renderDefaultFragment
+        renderFragment(R.id.nav_transaction_history);
     }
 
     private void initFab(){
@@ -102,11 +108,20 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_transaction_history) {
-            // Handle transaction history
-        }
+        renderFragment(id);
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void renderFragment(int id){
+        Fragment fragment = null;
+
+        if (id == R.id.nav_transaction_history) {
+            // Handle transaction history
+            fragment =  TransactionListFragment.newInstance();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.main_container, fragment).commit();
     }
 }
