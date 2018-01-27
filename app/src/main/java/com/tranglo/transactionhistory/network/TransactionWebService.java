@@ -18,12 +18,12 @@ import retrofit2.http.POST;
 public interface TransactionWebService {
 
     @FormUrlEncoded
-    @POST("/token_service")
+    @POST("token_service")
     Observable<Auth> getAccessToken(@Field("client_id") String clientId,
                                     @Field("client_secret") String clientSecret,
                                     @Field("grant_type") String grantType);
 
-    @GET("/api/TransactionDetails")
+    @GET("api/TransactionDetails")
     Observable<List<TransactionDetail>> getTransactionDetails();
 
 }
