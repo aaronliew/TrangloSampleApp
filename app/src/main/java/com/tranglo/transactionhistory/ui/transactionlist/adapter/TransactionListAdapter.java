@@ -69,11 +69,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         ImageView statusIcon = holder.statusIcon;
         CardView transactionItemContainer = holder.transactionItemContainer;
         switch (statusCode){
-            case Const.PENDING_STATUS_CODE:
+            case Const.SUCCESS_STATUS_CODE:
                 statusIcon.setBackground(context.getDrawable(R.drawable.ic_success));
                 transactionItemContainer.setCardBackgroundColor(context.getResources().getColor(R.color.status_success));
                 break;
-            case Const.SUCCESS_STATUS_CODE:
+            case Const.FAIL_STATUS_CODE:
                 statusIcon.setBackground(context.getDrawable(R.drawable.ic_failed));
                 transactionItemContainer.setCardBackgroundColor(context.getResources().getColor(R.color.status_failed));
                 break;
