@@ -66,8 +66,9 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
 
                     @Override
                     public void onError(Throwable e) {
+                        TransactionListViewPresenterImpl.this.transactionDetails = new ArrayList<TransactionDetail>();
                         transactionListView.displayErrorMessage(e.getMessage());
-                        transactionListView.showTransactionList(new ArrayList<TransactionDetail>());
+                        transactionListView.showTransactionList(transactionDetails);
                         transactionListView.showLoading(false);
                     }
 
@@ -98,8 +99,9 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
 
                     @Override
                     public void onError(Throwable e) {
+                        TransactionListViewPresenterImpl.this.transactionDetails = new ArrayList<TransactionDetail>();
                         transactionListView.displayErrorMessage(e.getMessage());
-                        transactionListView.showTransactionList(new ArrayList<TransactionDetail>());
+                        transactionListView.showTransactionList(transactionDetails);
                         transactionListView.showLoading(false);
                     }
 
