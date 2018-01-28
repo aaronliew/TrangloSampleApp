@@ -12,12 +12,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.tranglo.transactionhistory.R;
 import com.tranglo.transactionhistory.ui.transactionlist.TransactionListFragment;
 
@@ -63,8 +61,21 @@ public class MainActivity extends AppCompatActivity
         sortByNamefab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                TransactionListFragment transactionListFragment = (TransactionListFragment) getSupportFragmentManager().findFragmentById(R.id.main_container);
+                if (transactionListFragment.isAdded()){
+                    transactionListFragment.sortByName();
+                }
+            }
+        });
+
+        sortByTimefab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TransactionListFragment transactionListFragment = (TransactionListFragment) getSupportFragmentManager().findFragmentById(R.id.main_container);
+                if (transactionListFragment.isAdded()){
+                    Log.d("time", "sort by time");
+                    transactionListFragment.sortByTime();
+                }
             }
         });
     }

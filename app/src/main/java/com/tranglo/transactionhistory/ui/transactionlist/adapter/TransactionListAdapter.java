@@ -1,6 +1,7 @@
 package com.tranglo.transactionhistory.ui.transactionlist.adapter;
 
 import android.content.Context;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -81,6 +82,11 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
                 transactionItemContainer.setCardBackgroundColor(context.getResources().getColor(R.color.status_pending));
         }
 
+    }
+
+    public void updateList(List<TransactionDetail> newTransactionDetails) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallback(newTransactionDetails, this.transactionDetails));
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

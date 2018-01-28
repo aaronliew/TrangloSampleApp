@@ -44,6 +44,8 @@ public class TransactionListFragment extends Fragment implements TransactionList
 
     TransactionListComponent activityComponent;
 
+    TransactionListAdapter transactionListAdapter;
+
     public static TransactionListFragment newInstance() {
         return new TransactionListFragment();
     }
@@ -89,7 +91,21 @@ public class TransactionListFragment extends Fragment implements TransactionList
 
     @Override
     public void showTransactionList(List<TransactionDetail> transactionDetails) {
+        transactionListAdapter = new TransactionListAdapter(getActivity(), transactionDetails);
         transactionList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        transactionList.setAdapter(new TransactionListAdapter(getActivity(), transactionDetails));
+        transactionList.setAdapter(transactionListAdapter);
+    }
+
+    @Override
+    public void updateTransactionHistory(List<TransactionDetail> transactionDetails) {
+        transactionListAdapter.updateList(transactionDetails);
+    }
+
+    public void sortByTime(){
+        transactionListViewPresenter.sortByTime();
+    }
+
+    public void sortByName(){
+        transactionListViewPresenter.sortByName();
     }
 }

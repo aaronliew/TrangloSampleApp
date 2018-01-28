@@ -12,4 +12,5 @@ public interface TransactionListView {
     void displayErrorMessage(String text);
     void showLoading(boolean isLoading);
     void showTransactionList(List<TransactionDetail> transactionDetails);
+    void updateTransactionHistory(List<TransactionDetail> transactionDetails);
 }
