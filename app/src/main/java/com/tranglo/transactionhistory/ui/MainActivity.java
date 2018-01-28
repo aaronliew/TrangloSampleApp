@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.tranglo.transactionhistory.R;
 import com.tranglo.transactionhistory.ui.transactionlist.TransactionListFragment;
 
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.multiple_actions)
+    FloatingActionsMenu floatingActionsMenu;
 
     @BindView(R.id.sort_by_name)
     FloatingActionButton sortByNamefab;
@@ -65,6 +69,7 @@ public class MainActivity extends AppCompatActivity
                 if (transactionListFragment.isAdded()){
                     transactionListFragment.sortByName();
                 }
+                floatingActionsMenu.collapse();
             }
         });
 
@@ -73,9 +78,9 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 TransactionListFragment transactionListFragment = (TransactionListFragment) getSupportFragmentManager().findFragmentById(R.id.main_container);
                 if (transactionListFragment.isAdded()){
-                    Log.d("time", "sort by time");
                     transactionListFragment.sortByTime();
                 }
+                floatingActionsMenu.collapse();
             }
         });
     }

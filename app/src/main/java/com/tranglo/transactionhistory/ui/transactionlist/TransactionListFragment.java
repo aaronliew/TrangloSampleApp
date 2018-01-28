@@ -4,11 +4,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tranglo.transactionhistory.BaseApplication;
@@ -41,6 +43,12 @@ public class TransactionListFragment extends Fragment implements TransactionList
 
     @Inject
     TransactionListViewPresenter transactionListViewPresenter;
+
+    @BindView(R.id.empty_view)
+    TextView emptyView;
+
+    @BindView(R.id.swipe_to_fresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @BindView(R.id.transaction_list)
     RecyclerView transactionList;
@@ -79,6 +87,14 @@ public class TransactionListFragment extends Fragment implements TransactionList
         showLoading(true);
         transactionListViewPresenter.setView(this);
         transactionListViewPresenter.getAccessToken();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                transactionListViewPresenter.getAccessToken();
+            }
+        });
         return view;
     }
 
@@ -94,16 +110,24 @@ public class TransactionListFragment extends Fragment implements TransactionList
 
     @Override
     public void showTransactionList(List<TransactionDetail> transactionDetails) {
+        swipeRefreshLayout.setRefreshing(false);
+        if (transactionDetails.size() == 0){
+            emptyView.setVisibility(View.VISIBLE);
+        } else{
+            emptyView.setVisibility(View.GONE);
+        }
+
         transactionList.setItemAnimator(new OvershootInLeftAnimator());
         transactionListAdapter = new TransactionListAdapter(getActivity(), transactionDetails);
         transactionList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        transactionList.setAdapter(new SlideInLeftAnimationAdapter(transactionListAdapter));
+        transactionList.setAdapter(new AlphaInAnimationAdapter(transactionListAdapter));
+
     }
 
     @Override
     public void updateTransactionHistory(List<TransactionDetail> transactionDetails) {
         transactionList.swapAdapter(new SlideInLeftAnimationAdapter(new TransactionListAdapter(getActivity(), transactionDetails)), false);
-//        transactionListAdapter.updateList(transactionDetails);
+        transactionListAdapter.updateList(transactionDetails);
     }
 
     public void sortByTime(){
