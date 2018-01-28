@@ -26,6 +26,10 @@ public class TransactionDetail {
         public String ContactNumber;
     }
 
+    public int getTransactionId() {
+        return TransactionId;
+    }
+
     public String getCreatedDate() {
 
         try {
