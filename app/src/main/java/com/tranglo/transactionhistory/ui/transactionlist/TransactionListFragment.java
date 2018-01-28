@@ -28,6 +28,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInLeftAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.OvershootInLeftAnimator;
 
 /**
  * Created by bot on 27/01/2018.
@@ -91,14 +94,16 @@ public class TransactionListFragment extends Fragment implements TransactionList
 
     @Override
     public void showTransactionList(List<TransactionDetail> transactionDetails) {
+        transactionList.setItemAnimator(new OvershootInLeftAnimator());
         transactionListAdapter = new TransactionListAdapter(getActivity(), transactionDetails);
         transactionList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        transactionList.setAdapter(transactionListAdapter);
+        transactionList.setAdapter(new SlideInLeftAnimationAdapter(transactionListAdapter));
     }
 
     @Override
     public void updateTransactionHistory(List<TransactionDetail> transactionDetails) {
-        transactionListAdapter.updateList(transactionDetails);
+        transactionList.swapAdapter(new SlideInLeftAnimationAdapter(new TransactionListAdapter(getActivity(), transactionDetails)), false);
+//        transactionListAdapter.updateList(transactionDetails);
     }
 
     public void sortByTime(){

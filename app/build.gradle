@@ -75,5 +75,8 @@ dependencies {
     //floating action button
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
+    //recycler view animation
+    implementation 'jp.wasabeef:recyclerview-animators:2.2.7'
+
     debugImplementation 'junit:junit:4.12'
 }
