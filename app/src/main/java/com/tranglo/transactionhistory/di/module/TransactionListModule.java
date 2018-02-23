@@ -1,5 +1,6 @@
 package com.tranglo.transactionhistory.di.module;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 
 import com.tranglo.transactionhistory.di.Qualifiers;
@@ -15,12 +16,17 @@ import dagger.Provides;
 @Module
 public class TransactionListModule {
 
-    public TransactionListModule(){}
+
+    private Activity mActivity;
+
+    public TransactionListModule(Activity mActivity){
+        this.mActivity = mActivity;
+    }
 
     @Provides
     TransactionListViewPresenter provideTransactionListViewPresenter(@Qualifiers.TransactionWebService TransactionWebService transactionWebService,
                                                                      @Qualifiers.SharedPreferences SharedPreferences sharedPreferences) {
-        return new TransactionListViewPresenterImpl(transactionWebService, sharedPreferences);
+        return new TransactionListViewPresenterImpl(transactionWebService, sharedPreferences, mActivity);
     }
 
 
