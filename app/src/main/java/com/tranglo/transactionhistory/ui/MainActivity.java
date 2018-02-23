@@ -12,6 +12,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.view.MenuItem;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -25,6 +26,9 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    // this idling resource will be used by Espresso to wait for and synchronize with RetroFit Network call
+    CountingIdlingResource espressoTestIdlingResource = new CountingIdlingResource("Network_Call");
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -136,5 +140,13 @@ public class MainActivity extends AppCompatActivity
             loadingAnimation.setVisibility(View.GONE);
             loadingAnimation.cancelAnimation();
         }
+    }
+
+    /**
+     *
+     * @return MainActvity's idling resource for Espresso testing
+     */
+    public CountingIdlingResource getEspressoIdlingResourceForMainActivity() {
+        return espressoTestIdlingResource;
     }
 }
