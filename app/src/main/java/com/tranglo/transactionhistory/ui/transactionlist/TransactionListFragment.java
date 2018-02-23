@@ -66,7 +66,7 @@ public class TransactionListFragment extends Fragment implements TransactionList
     public TransactionListComponent getActivityComponent() {
         if (activityComponent == null) {
             activityComponent = DaggerTransactionListComponent.builder()
-                    .transactionListModule(new TransactionListModule())
+                    .transactionListModule(new TransactionListModule(getActivity()))
                     .appComponent(BaseApplication.get(getActivity()).getComponent())
                     .build();
         }
