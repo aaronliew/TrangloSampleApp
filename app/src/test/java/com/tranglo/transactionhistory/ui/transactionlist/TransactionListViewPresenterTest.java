@@ -2,6 +2,7 @@ package com.tranglo.transactionhistory.ui.transactionlist;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.support.test.espresso.idling.CountingIdlingResource;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.util.Log;
@@ -10,6 +11,7 @@ import com.tranglo.transactionhistory.BuildConfig;
 import com.tranglo.transactionhistory.network.TransactionWebService;
 import com.tranglo.transactionhistory.network.model.Auth;
 import com.tranglo.transactionhistory.network.model.TransactionDetail;
+import com.tranglo.transactionhistory.ui.MainActivity;
 import com.tranglo.transactionhistory.ui.transactionlist.TransactionListView;
 import com.tranglo.transactionhistory.ui.transactionlist.TransactionListViewPresenter;
 import com.tranglo.transactionhistory.ui.transactionlist.TransactionListViewPresenterImpl;
@@ -68,7 +70,7 @@ public class TransactionListViewPresenterTest {
     TransactionListView transactionListView;
 
     @Mock
-    Activity mActivity;
+    MainActivity mActivity;
 
     @Mock
     List<TransactionDetail> transactionDetails;
@@ -114,7 +116,9 @@ public class TransactionListViewPresenterTest {
     public void testSuccessfulLogin() throws  Exception{
 
         auth.access_token = "access";
+        CountingIdlingResource espressoTestIdlingResource = new CountingIdlingResource("Network_Call");
         doReturn(Observable.just(auth)).when(transactionWebService).getAccessToken(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, BuildConfig.GRANT_TYPE);
+        doReturn(espressoTestIdlingResource).when(mActivity).getEspressoIdlingResourceForMainActivity();
         doNothing().when(mTransactionListViewPresenter).storeAccessToken(auth);
         doNothing().when(mTransactionListViewPresenter).getTransactionHistory();
         mTransactionListViewPresenter.getAccessToken();
@@ -130,6 +134,8 @@ public class TransactionListViewPresenterTest {
         Auth auth = new Auth();
         auth.access_token = "";
         doReturn(Observable.error(new Exception("Invalid Token"))).when(transactionWebService).getAccessToken(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, BuildConfig.GRANT_TYPE);
+        CountingIdlingResource espressoTestIdlingResource = new CountingIdlingResource("Network_Call");
+        doReturn(espressoTestIdlingResource).when(mActivity).getEspressoIdlingResourceForMainActivity();
         mTransactionListViewPresenter.getAccessToken();
 
         verify(transactionListView, times(1)).displayErrorMessage("Invalid Token");
