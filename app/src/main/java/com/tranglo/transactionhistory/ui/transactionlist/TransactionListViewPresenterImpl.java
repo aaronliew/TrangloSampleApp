@@ -1,5 +1,6 @@
 package com.tranglo.transactionhistory.ui.transactionlist;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import com.tranglo.transactionhistory.Const;
 import com.tranglo.transactionhistory.network.TransactionWebService;
 import com.tranglo.transactionhistory.network.model.Auth;
 import com.tranglo.transactionhistory.network.model.TransactionDetail;
+import com.tranglo.transactionhistory.ui.MainActivity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,11 +37,13 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
     private SharedPreferences sharedPreferences;
     private TransactionListView transactionListView;
     private List<TransactionDetail> transactionDetails;
+    private Activity mActivity;
 
 
-    public TransactionListViewPresenterImpl(TransactionWebService transactionWebService, SharedPreferences sharedPreferences){
+    public TransactionListViewPresenterImpl(TransactionWebService transactionWebService, SharedPreferences sharedPreferences, Activity mActivity){
         this.transactionWebService = transactionWebService;
         this.sharedPreferences = sharedPreferences;
+        this.mActivity = mActivity;
     }
 
     @Override
@@ -49,6 +53,8 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
 
     @Override
     public void getAccessToken() {
+
+        ((MainActivity) mActivity).getEspressoIdlingResourceForMainActivity().increment();
         this.transactionWebService.getAccessToken(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, BuildConfig.GRANT_TYPE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -60,6 +66,8 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
 
                     @Override
                     public void onNext(Auth auth) {
+                        Log.d("auth", auth.access_token);
+
                         storeAccessToken(auth);
                         getTransactionHistory();
                     }
@@ -79,7 +87,7 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
                 });
     }
 
-    private void getTransactionHistory() {
+    protected void getTransactionHistory() {
         this.transactionWebService.getTransactionDetails()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -95,6 +103,7 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
                         transactionListView.showTransactionList(transactionDetails);
                         sortByTime();
                         transactionListView.showLoading(false);
+                        ((MainActivity) mActivity).getEspressoIdlingResourceForMainActivity().decrement();
                     }
 
                     @Override
@@ -150,7 +159,7 @@ public class TransactionListViewPresenterImpl implements  TransactionListViewPre
 
     }
 
-    private void storeAccessToken(Auth auth){
+    protected void storeAccessToken(Auth auth){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Const.ACCESS_TOKEN, auth.access_token);
         editor.apply();
