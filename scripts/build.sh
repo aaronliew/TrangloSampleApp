@@ -62,7 +62,7 @@ apkFileName="app-$buildType.apk"
 rm -r artifacts/
 rm -r report/
 rm -r app/build/artifacts/
-rm -r app/buildreport/
+rm -r app/build/report/
 mkdir app/build/artifacts
 mkdir app/build/report
 mkdir app/build/report/test-results
