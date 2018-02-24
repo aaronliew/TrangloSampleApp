@@ -61,9 +61,11 @@ fi
 apkFileName="app-$buildType.apk"
 rm -r artifacts/
 rm -r report/
-mkdir artifacts
-mkdir report
-mkdir report/test-results
+rm -r app/build/artifacts/
+rm -r app/buildreport/
+mkdir app/build/artifacts
+mkdir app/build/report
+mkdir app/build/report/test-results
 
 # copy apk to artifacts
 if [ ! -e "app/build/outputs/apk/$buildType/$apkFileName" ]; then
