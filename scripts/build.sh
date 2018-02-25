@@ -64,8 +64,8 @@ rm -r report/
 rm -r app/build/artifacts/
 rm -r app/build/report/
 mkdir app/build/artifacts
-mkdir app/build/report
-mkdir app/build/report/test-results
+mkdir report
+mkdir report/test-results
 
 # copy apk to artifacts
 if [ ! -e "app/build/outputs/apk/$buildType/$apkFileName" ]; then
@@ -88,9 +88,9 @@ do
 
     testsDir=""
     if [ $buildType = 'debug' ]; then
-        testsDir="$module/build/test-results/testDebugUnitTest"
+        testsDir="app/build/test-results/testDebugUnitTest"
     elif [ $buildType = 'release' ]; then
-        testsDir="$module/build/test-results/testReleaseUnitTest"
+        testsDir="app/build/test-results/testReleaseUnitTest"
     fi
 
     if [ ! "$(ls -A $testsDir)" ]; then
